@@ -12,15 +12,17 @@ from src.components.data_transformation import DataTransformationConfig
 
 from src.components.model_trainer import ModelTrainerConfig
 from src.components.model_trainer import ModelTrainer
-@dataclass
+
+@dataclass  #it directly defines the dataclass without the use of the __init__() inside the the class
 class DataIngestionConfig:
+    # train.csv is the filename,artifacts is the folder name here the file will be saved
     train_data_path: str=os.path.join('artifacts',"train.csv")
     test_data_path: str=os.path.join('artifacts',"test.csv")
     raw_data_path: str=os.path.join('artifacts',"data.csv")
 
 class DataIngestion:
     def __init__(self):
-        self.ingestion_config=DataIngestionConfig()
+        self.ingestion_config=DataIngestionConfig() #DataIngestionConfig() saves above three objects
 
     def initiate_data_ingestion(self):
         logging.info("Entered the data ingestion method or component")
@@ -30,6 +32,7 @@ class DataIngestion:
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
 
+            # RAw data
             df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
 
             logging.info("Train test split initiated")
